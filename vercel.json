@@ -3,6 +3,10 @@
     "functions": {
         "server/server.js": {
             "maxDuration": 60
+        },
+        "api/extract": {
+            "maxDuration": 60,
+            "bodyParser": false
         }
     },
     "builds": [
