@@ -1240,6 +1240,26 @@ body.light-theme .quiz-option-label:hover {
 
     .upload-wrapper {
         gap: 40px;
+        flex-direction: column;
+    }
+
+    .upload-left,
+    .upload-right {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .upload-btn {
+        width: 100%;
+        display: block;
+    }
+
+    .analyze-buttons {
+        flex-direction: column;
+    }
+
+    .analyze-btn {
+        width: 100%;
     }
 
     .analysis-layout {
@@ -1283,13 +1303,6 @@ body.light-theme .quiz-option-label:hover {
         font-size: 16px;
     }
 
-    .upload-left,
-    .upload-right {
-        min-width: 0;
-        /* Clear explicit 300px threshold from desktop */
-        width: 100%;
-    }
-
     .upload-left h1 {
         font-size: 38px;
     }
@@ -1300,14 +1313,6 @@ body.light-theme .quiz-option-label:hover {
 
     .job-role-section {
         padding: 20px;
-    }
-
-    .analyze-buttons {
-        flex-direction: column;
-    }
-
-    .analyze-btn {
-        width: 100%;
     }
 
     .analysis-title {
