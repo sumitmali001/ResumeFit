@@ -1123,6 +1123,22 @@ body.light-theme .quiz-option-label:hover {
     color: var(--text-main);
 }
 
+/* ================= FOOTER ================= */
+.global-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    font-size: 13px;
+    color: var(--text-muted);
+    background: transparent;
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 9999;
+}
+
 /* ================= RESPONSIVE DESIGN ================= */
 
 @media (max-width: 1024px) {
