@@ -40,22 +40,30 @@
     <header class="navbar">
         <div class="nav-inner">
 
-            <div class="logo" style="display: flex; align-items: center; gap: 8px;">
+            <div class="logo" style="display: flex; align-items: center; gap: 8px; z-index: 1001;">
                 <img src="images/WebsiteLogo.png" alt="ResumeFit Logo"
                     style="width: 3rem; height: 2.8rem; border-radius: 6px;">
                 <div>Resume<span>Fit</span></div>
             </div>
 
-            <nav class="nav-links">
-                <a href="#" id="homeLink">Home</a>
-                <a href="#" id="analyzerLink">Analyzer</a>
-                <a href="#" id="helpLink">Help</a>
-                <a href="#" id="aboutLink">About</a>
-            </nav>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
 
-            <div class="nav-actions">
-                <button id="themeToggleBtn" class="theme-btn" aria-label="Toggle Theme">☀️</button>
-                <button class="cta-btn" id="navStartBtn">Get Started</button>
+            <div class="nav-menu" id="navMenu">
+                <nav class="nav-links">
+                    <a href="#" id="homeLink">Home</a>
+                    <a href="#" id="analyzerLink">Analyzer</a>
+                    <a href="#" id="helpLink">Help</a>
+                    <a href="#" id="aboutLink">About</a>
+                </nav>
+
+                <div class="nav-actions">
+                    <button id="themeToggleBtn" class="theme-btn" aria-label="Toggle Theme">☀️</button>
+                    <button class="cta-btn" id="navStartBtn">Get Started</button>
+                </div>
             </div>
 
         </div>
