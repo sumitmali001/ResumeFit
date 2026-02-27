@@ -27,12 +27,20 @@ app.post("/api/extract", upload.single("file"), async (req, res) => {
       return res.status(400).json({ error: "No file uploaded" });
     }
 
-    const data = await pdf(req.file.buffer);
+    // pdf-parse needs the raw buffer
+    const buffer = req.file.buffer;
+
+    // Check if buffer is valid
+    if (!buffer || buffer.length === 0) {
+      return res.status(400).json({ error: "Empty file buffer received" });
+    }
+
+    const data = await pdf(buffer);
     res.json({ text: data.text });
 
   } catch (err) {
     console.error("PDF extraction error:", err);
-    res.status(500).json({ error: "Failed to extract text from PDF" });
+    res.status(500).json({ error: "Failed to extract text from PDF: " + err.message });
   }
 });
 
