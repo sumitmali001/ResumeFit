@@ -99,27 +99,52 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        fileName.textContent = file.name;
+        fileName.textContent = file.name + " (Analyzing...)";
+        uploadBtn.disabled = true;
+        analyzeBtn.disabled = true;
+        advancedAnalyzeBtn.disabled = true;
 
-        const formData = new FormData();
-        formData.append("file", file);
+        try {
+            const formData = new FormData();
+            formData.append("file", file);
 
-        const res = await fetch("/api/extract", {
-            method: "POST",
-            body: formData
-        });
+            const res = await fetch("/api/extract", {
+                method: "POST",
+                body: formData
+            });
 
-        const data = await res.json();
-        const resumeText = data.text;
+            if (!res.ok) throw new Error("Extraction failed");
+            const data = await res.json();
+            const resumeText = data.text;
 
-        const skillRes = await fetch("/api/analyze", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ resumeText })
-        });
+            if (!resumeText) throw new Error("Empty PDF");
 
-        const skillData = await skillRes.json();
-        resumeSkillsText = skillData.skills;
+            const skillRes = await fetch("/api/analyze", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ resumeText })
+            });
+
+            if (!skillRes.ok) throw new Error("Analysis failed");
+            const skillData = await skillRes.json();
+            resumeSkillsText = skillData.skills;
+
+            if (resumeSkillsText) {
+                fileName.textContent = file.name + " (Processed!)";
+            } else {
+                throw new Error("No skills found");
+            }
+        } catch (error) {
+            console.error(error);
+            alert("Error analyzing resume. Please check if your PDF is readable or try again.");
+            fileName.textContent = "Error processing: " + file.name;
+            resumeInput.value = "";
+            resumeSkillsText = "";
+        } finally {
+            uploadBtn.disabled = false;
+            analyzeBtn.disabled = false;
+            advancedAnalyzeBtn.disabled = false;
+        }
 
     });
 
