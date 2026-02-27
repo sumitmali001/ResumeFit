@@ -1,0 +1,25 @@
+{
+  "name": "resumefit",
+  "version": "1.0.0",
+  "description": "Resume analyzer app",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server/server.js"
+  },
+  "keywords": [
+    "resume",
+    "analyzer",
+    "AI"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.2.4",
+    "express": "^5.2.1",
+    "node-fetch": "^3.3.2",
+    "pdf-parse": "^2.4.5",
+    "multer": "^1.4.5-lts.1"
+  }
+}
