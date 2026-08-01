@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "/api",
+  baseURL: import.meta.env.VITE_API_URL || "/api",
   headers: {
     "Content-Type": "application/json",
   },
@@ -62,11 +62,13 @@ export const saveAnalysisApi = async (data) => {
   return response.data;
 };
 
+// Get past history
 export const getHistoryApi = async () => {
   const response = await API.get("/history");
   return response.data;
 };
 
+// Delete history record
 export const deleteAnalysisApi = async (id) => {
   const response = await API.delete(`/history/${id}`);
   return response.data;

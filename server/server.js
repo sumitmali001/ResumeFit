@@ -1,6 +1,5 @@
 import express from "express";
 import dotenv from "dotenv";
-import path from "path";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
@@ -14,12 +13,27 @@ const app = express();
 
 // Middleware
 app.use(helmet({
-  contentSecurityPolicy: false, // Allows flexible integration for development/previews
+  contentSecurityPolicy: false, // Flexible header policies for cross-origin frontend requests
 }));
+
+// CORS Configuration
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost:5173",
+  process.env.CLIENT_URL,
+].filter(Boolean);
+
 app.use(cors({
-  origin: "*",
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin) || process.env.CLIENT_URL === "*") {
+      callback(null, true);
+    } else {
+      callback(null, true); // Allow cross-origin preview requests
+    }
+  },
   credentials: true,
 }));
+
 app.use(morgan("dev"));
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
@@ -30,7 +44,7 @@ connectDB();
 // API Routes
 app.use("/api", analyzerRoutes);
 
-// Health check endpoint
+// Health Check Endpoint
 app.get("/api/health", (req, res) => {
   res.json({
     status: "ok",
@@ -46,7 +60,7 @@ const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`=================================`);
-  console.log(`🚀 ResumeFit Server running on http://localhost:${PORT}`);
+  console.log(`🚀 ResumeFit Server running on port ${PORT}`);
   console.log(`=================================`);
 });
 
